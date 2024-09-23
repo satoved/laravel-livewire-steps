@@ -2,9 +2,7 @@
 
 namespace Satoved\LivewireSteps\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Satoved\LivewireSteps\LivewireStepsServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -12,25 +10,13 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Satoved\\LivewireSteps\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        config()->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            LivewireStepsServiceProvider::class,
+            \Livewire\LivewireServiceProvider::class,
         ];
-    }
-
-    public function getEnvironmentSetUp($app)
-    {
-        config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_laravel-livewire-steps_table.php.stub';
-        $migration->up();
-        */
     }
 }

@@ -7,13 +7,11 @@ use Satoved\LivewireSteps\Livewire\WizardComponent;
 
 abstract class StepForm extends Form
 {
-    abstract public function label(): string;
-
     abstract public function render();
 
-    public function id(): string
+    public static function id(): string
     {
-        return class_basename(get_class($this));
+        return md5(static::class);
     }
 
     public function getComponent(): WizardComponent
@@ -34,6 +32,16 @@ abstract class StepForm extends Form
     public function isFuture(): bool
     {
         return $this->index() > $this->currentWizardIndex();
+    }
+
+    public function isFirst(): bool
+    {
+        return $this->index() === 0;
+    }
+
+    public function isLast(): bool
+    {
+        return $this->index() === ($this->getComponent()->totalSteps() - 1);
     }
 
     protected function index(): int

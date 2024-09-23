@@ -2,6 +2,8 @@
 
 namespace Satoved\LivewireSteps\Livewire;
 
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\HtmlString;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Satoved\LivewireSteps\Livewire\Forms\StepForm;
@@ -9,12 +11,7 @@ use Satoved\LivewireSteps\Livewire\Forms\StepForm;
 abstract class WizardComponent extends Component
 {
     #[Locked]
-    public int $currentStepIndex;
-
-    public function mount()
-    {
-        $this->currentStepIndex = 0;
-    }
+    public int $currentStepIndex = 0;
 
     abstract public function steps(): array;
 
@@ -49,7 +46,7 @@ abstract class WizardComponent extends Component
         return $this->currentStepIndex === 0;
     }
 
-    protected function totalSteps(): int
+    public function totalSteps(): int
     {
         return count($this->steps());
     }
@@ -63,5 +60,15 @@ abstract class WizardComponent extends Component
                 $this->steps()
             )
         );
+    }
+
+    public function renderStep()
+    {
+        return Blade::render(<<<'BLADE'
+            <div wire:key="wizard-step-{{ $this->currentStep()->id() }}">
+                {!! $this->currentStep()->render() !!}
+            </div>
+BLADE
+);
     }
 }
