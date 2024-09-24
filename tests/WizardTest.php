@@ -1,7 +1,6 @@
 <?php
 
 use Livewire\Livewire;
-use Satoved\LivewireSteps\Exceptions\NoNextStep;
 use Satoved\LivewireSteps\Livewire\WizardComponent;
 use Satoved\LivewireSteps\Tests\TestSupport\MyWizardComponent;
 use Satoved\LivewireSteps\Tests\TestSupport\Steps\SecondStepForm;
