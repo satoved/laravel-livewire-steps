@@ -42,8 +42,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Satoved\\LivewireSteps\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "Satoved\\LivewireSteps\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -51,8 +50,7 @@
         "clear": "@php vendor/bin/testbench package:purge-laravel-livewire-steps --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": [
-            "@composer run prepare",
-            "@php vendor/bin/testbench workbench:build --ansi"
+            "@composer run prepare"
         ],
         "start": [
             "Composer\\Config::disableProcessTimeout",
