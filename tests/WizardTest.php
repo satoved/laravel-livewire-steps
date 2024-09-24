@@ -6,7 +6,6 @@ use Satoved\LivewireSteps\Livewire\WizardComponent;
 use Satoved\LivewireSteps\Tests\TestSupport\MyWizardComponent;
 use Satoved\LivewireSteps\Tests\TestSupport\Steps\SecondStepForm;
 use Satoved\LivewireSteps\Tests\TestSupport\Steps\SomeIntricateNameStepForm;
-use Satoved\LivewireSteps\Tests\TestSupport\WizardWithThreeLabeledStepsComponent;
 
 $it = it('can render a wizard component', function () {
     Livewire::test(MyWizardComponent::class)->assertSuccessful();
@@ -57,7 +56,8 @@ it('can render steps with their states', function () {
 });
 
 it('has default labels for steps', function () {
-    $class = new class extends WizardComponent {
+    $class = new class extends WizardComponent
+    {
         public SomeIntricateNameStepForm $someIntricateNameStepForm;
 
         public function render()
@@ -69,6 +69,7 @@ it('has default labels for steps', function () {
     Livewire::test($class)
         ->assertSet('someIntricateNameStepForm', function ($step) {
             expect($step->label())->toBe('Some Intricate Name');
+
             return true;
         });
 });
@@ -81,6 +82,7 @@ it('can render navigation with labels and step statuses', function () {
                 ->and($firstStepForm->isLast())->toBeFalse()
                 ->and($firstStepForm->isPast())->toBeFalse()
                 ->and($firstStepForm->isFuture())->toBeFalse();
+
             return true;
         })
         ->assertSet('secondStepForm', function ($firstStepForm) {
@@ -89,6 +91,7 @@ it('can render navigation with labels and step statuses', function () {
                 ->and($firstStepForm->isLast())->toBeTrue()
                 ->and($firstStepForm->isPast())->toBeFalse()
                 ->and($firstStepForm->isFuture())->toBeTrue();
+
             return true;
         })
         ->set('currentStepIndex', 1)
@@ -96,12 +99,14 @@ it('can render navigation with labels and step statuses', function () {
             expect($firstStepForm->isCurrent())->toBeFalse()
                 ->and($firstStepForm->isPast())->toBeTrue()
                 ->and($firstStepForm->isFuture())->toBeFalse();
+
             return true;
         })
         ->assertSet('secondStepForm', function ($firstStepForm) {
             expect($firstStepForm->isCurrent())->toBeTrue()
                 ->and($firstStepForm->isPast())->toBeFalse()
                 ->and($firstStepForm->isFuture())->toBeFalse();
+
             return true;
         });
 });

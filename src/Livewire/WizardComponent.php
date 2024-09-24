@@ -3,7 +3,6 @@
 namespace Satoved\LivewireSteps\Livewire;
 
 use Illuminate\Support\Facades\Blade;
-use Livewire\Attributes\Locked;
 use Livewire\Component;
 use ReflectionClass;
 use ReflectionNamedType;

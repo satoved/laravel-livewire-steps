@@ -9,6 +9,7 @@ use Satoved\LivewireSteps\Tests\TestSupport\Steps\SecondStepForm;
 class MyWizardComponent extends WizardComponent
 {
     public FirstStepForm $firstStepForm;
+
     public SecondStepForm $secondStepForm;
 
     public function render()
