@@ -32,7 +32,7 @@ class EmailSubscriptionWizard extends WizardComponent
         return <<<'BLADE'
             <form wire:submit="nextStep">
                 {{ $this->renderStep() }}
-                <button>Next<button>
+                <button>Next</button>
             </form>
 BLADE;
     }
