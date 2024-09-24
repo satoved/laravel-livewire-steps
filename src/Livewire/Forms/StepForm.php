@@ -14,6 +14,14 @@ abstract class StepForm extends Form
         return md5(static::class);
     }
 
+    public function label(): string
+    {
+        return str(class_basename(static::class))
+            ->remove('Step')
+            ->remove('Form')
+            ->headline();
+    }
+
     public function getComponent(): WizardComponent
     {
         return parent::getComponent();
@@ -24,7 +32,7 @@ abstract class StepForm extends Form
         return $this->index() === $this->currentWizardIndex();
     }
 
-    public function isPrevious(): bool
+    public function isPast(): bool
     {
         return $this->index() < $this->currentWizardIndex();
     }
