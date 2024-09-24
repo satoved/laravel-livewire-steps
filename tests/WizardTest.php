@@ -48,11 +48,11 @@ it('can go to a specific step', function () {
         ->assertSee('__SECOND_STEP_BODY__');
 });
 
-it('can render steps with their states', function () {
+it('adds unique wire:key to steps', function () {
     Livewire::test(MyWizardComponent::class)
-        ->assertSee('__FIRST_STEP_BODY__')
+        ->assertSeeHtml(' wire:key="wizard-step-44ed6a1c434b0a50b0b1dfe9a3b464ca"')
         ->call('toStep', SecondStepForm::id())
-        ->assertSee('__SECOND_STEP_BODY__');
+        ->assertSeeHtml(' wire:key="wizard-step-478dbf24db14bdd0d8e185357241685a"');
 });
 
 it('has default labels for steps', function () {

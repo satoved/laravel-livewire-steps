@@ -3,6 +3,7 @@
 namespace Satoved\LivewireSteps\Livewire;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\HtmlString;
 use Livewire\Component;
 use ReflectionClass;
 use ReflectionNamedType;
@@ -80,11 +81,13 @@ abstract class WizardComponent extends Component
 
     public function renderStep()
     {
-        return Blade::render(<<<'BLADE'
-            <div wire:key="wizard-step-{{ $this->currentStep()->id() }}">
-                {!! $this->currentStep()->render() !!}
-            </div>
+        return new HtmlString(
+            Blade::render(<<<'BLADE'
+                <div wire:key="wizard-step-{{ $this->currentStep()->id() }}">
+                    {!! $this->currentStep()->render() !!}
+                </div>
 BLADE
+            )
         );
     }
 
