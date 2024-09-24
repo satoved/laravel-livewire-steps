@@ -5,9 +5,9 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/satoved/laravel-livewire-steps/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/satoved/laravel-livewire-steps/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/satoved/laravel-livewire-steps.svg?style=flat-square)](https://packagist.org/packages/satoved/laravel-livewire-steps)
 ---
-Lightweight Livewire component that allow you to easily build a wizard, or multi-step forms.
+Lightweight Livewire component that allow you to easily build a wizard (multi-step form).
 
-Here's what a wizard component class could look like.
+This package utilizes [Livewire 3 forms objects](https://livewire.laravel.com/docs/forms#extracting-a-form-object) as steps and needs only one Livewire component as a Wizard.
 
 ## Installation
 
@@ -17,37 +17,42 @@ You can install the package via composer:
 composer require satoved/laravel-livewire-steps
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-livewire-steps-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="laravel-livewire-steps-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-livewire-steps-views"
-```
-
 ## Usage
-
+Create a Livewire component that extends WizardComponent. List all steps in the correct order as public properties.
 ```php
-$livewireSteps = new Satoved\LivewireSteps();
-echo $livewireSteps->echoPhrase('Hello, Satoved!');
+use Satoved\LivewireSteps\Livewire\WizardComponent;
+
+class EmailSubscriptionWizard extends WizardComponent
+{
+    public NameStep $nameStep;
+    public EmailStep $emailStep;
+
+    public function render()
+    {
+        return <<<'BLADE'
+            <form wire:submit="nextStep">
+                {{ $this->renderStep() }}
+                <button>Next<button>
+            </form>
+BLADE;
+    }
+}
+```
+
+Each step is a Livewire [form object](https://livewire.laravel.com/docs/forms#extracting-a-form-object) that must extend StepForm.
+```php
+use Satoved\LivewireSteps\Livewire\Forms\StepForm;
+
+class EmailStep extends StepForm
+{
+    #[Validate(['required', 'email'])]
+    public $email;
+
+    public function render()
+    {
+        return '<input type="email" wire:model="emailStep.email">';
+    }
+}
 ```
 
 ## Testing
@@ -55,6 +60,9 @@ echo $livewireSteps->echoPhrase('Hello, Satoved!');
 ```bash
 composer test
 ```
+
+## Alternatives
+This package was heavily inspired by [spatie/laravel-livewire-wizard](https://github.com/spatie/laravel-livewire-wizard). It's a great package, but each step has to be a Livewire component, and you get two requests for a parent component and the step component each time. Which is in overkill for my use cases.
 
 ## Changelog
 
