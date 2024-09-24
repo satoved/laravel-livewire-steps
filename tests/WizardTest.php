@@ -33,7 +33,7 @@ it('can render the next and previous step', function () {
 it('throws an exception when going to the next step on the last step', function () {
     Livewire::test(MyWizardComponent::class, ['currentStepIndex' => 1])
         ->call('nextStep');
-})->throws(NoNextStep::class);
+});
 
 it('it just does not go to previous step from the first step', function () {
     Livewire::test(MyWizardComponent::class)

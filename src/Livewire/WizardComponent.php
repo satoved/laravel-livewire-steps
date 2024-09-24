@@ -42,7 +42,7 @@ abstract class WizardComponent extends Component
     public function nextStep(): void
     {
         if ($this->currentStepIndex === $this->totalSteps() - 1) {
-            throw NoNextStep::make(self::class, $this->currentStep()->id());
+            throw NoNextStep::make(self::class, get_class($this->currentStep()));
         }
 
         $this->currentStepIndex++;
