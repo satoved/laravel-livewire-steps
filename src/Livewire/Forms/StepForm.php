@@ -2,6 +2,7 @@
 
 namespace Satoved\LivewireSteps\Livewire\Forms;
 
+use Illuminate\Support\Str;
 use Livewire\Form;
 use Satoved\LivewireSteps\Livewire\WizardComponent;
 
@@ -11,7 +12,7 @@ abstract class StepForm extends Form
 
     public static function id(): string
     {
-        return md5(static::class);
+        return str(class_basename(static::class))->headline()->slug();
     }
 
     public function label(): string
