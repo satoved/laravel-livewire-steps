@@ -4,6 +4,7 @@ use Livewire\Livewire;
 use Satoved\LivewireSteps\Exceptions\NoNextStep;
 use Satoved\LivewireSteps\Livewire\WizardComponent;
 use Satoved\LivewireSteps\Tests\TestSupport\MyWizardComponent;
+use Satoved\LivewireSteps\Tests\TestSupport\Steps\FirstStepForm;
 use Satoved\LivewireSteps\Tests\TestSupport\Steps\SecondStepForm;
 use Satoved\LivewireSteps\Tests\TestSupport\Steps\SomeIntricateNameStepForm;
 
@@ -48,6 +49,15 @@ it('can go to a specific step', function () {
         ->assertSee('__SECOND_STEP_BODY__');
 });
 
+it('can go to a specific step backwards', function () {
+    Livewire::test(MyWizardComponent::class)
+        ->call('nextStep')
+        ->assertSet('currentStepIndex', 1)
+        ->call('toStep', FirstStepForm::id())
+        ->assertSet('currentStepIndex', 0)
+        ->assertSee('__FIRST_STEP_BODY__');
+});
+
 it('adds unique wire:key to steps', function () {
     Livewire::test(MyWizardComponent::class)
         ->assertSeeHtml(' wire:key="wizard-step-FirstStepForm"')
@@ -56,8 +66,7 @@ it('adds unique wire:key to steps', function () {
 });
 
 it('has default labels for steps', function () {
-    $class = new class extends WizardComponent
-    {
+    $class = new class extends WizardComponent {
         public SomeIntricateNameStepForm $someIntricateNameStepForm;
 
         public function render()

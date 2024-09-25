@@ -9,6 +9,12 @@ Lightweight Livewire component that allow you to easily build a wizard (multi-st
 
 This package utilizes [Livewire 3 forms objects](https://livewire.laravel.com/docs/forms#extracting-a-form-object) as steps and needs only one Livewire component as a Wizard.
 
+![screenshot](https://github.com/satoved/laravel-livewire-steps/blob/main/docs/images/demo-screenshot.png?raw=true)
+
+Here's what a wizard could look like.
+
+In [this repo on GitHub](https://github.com/satoved/laravel-livewire-steps-demo), you'll find a demo Laravel application that uses the laravel-livewire-steps package to create a simple email subscription flow.
+
 ## Installation
 
 You can install the package via composer:
