@@ -2,7 +2,6 @@
 
 namespace Satoved\LivewireSteps\Livewire\Forms;
 
-use Illuminate\Support\Str;
 use Livewire\Form;
 use Satoved\LivewireSteps\Livewire\WizardComponent;
 
