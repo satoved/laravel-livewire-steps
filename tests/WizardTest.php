@@ -66,7 +66,8 @@ it('adds unique wire:key to steps', function () {
 });
 
 it('has default labels for steps', function () {
-    $class = new class extends WizardComponent {
+    $class = new class extends WizardComponent
+    {
         public SomeIntricateNameStepForm $someIntricateNameStepForm;
 
         public function render()
