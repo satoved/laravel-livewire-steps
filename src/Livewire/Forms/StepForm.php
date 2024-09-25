@@ -11,7 +11,7 @@ abstract class StepForm extends Form
 
     public static function id(): string
     {
-        return str(class_basename(static::class))->headline()->slug();
+        return class_basename(static::class);
     }
 
     public function label(): string
