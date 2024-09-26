@@ -2,11 +2,14 @@
 
 namespace Satoved\LivewireSteps\Livewire\Forms;
 
+use Closure;
 use Livewire\Form;
 use Satoved\LivewireSteps\Livewire\WizardComponent;
 
 abstract class StepForm extends Form
 {
+    protected ?Closure $skipCondition = null;
+
     abstract public function render();
 
     public static function id(): string
@@ -45,6 +48,20 @@ abstract class StepForm extends Form
     public function isFirst(): bool
     {
         return $this->index() === 0;
+    }
+
+    public function shouldBeSkipped(): bool
+    {
+        if ($this->skipCondition !== null) {
+            return ($this->skipCondition)();
+        }
+
+        return false;
+    }
+
+    public function skipIf(Closure $skipCondition): void
+    {
+        $this->skipCondition = $skipCondition;
     }
 
     public function isLast(): bool
