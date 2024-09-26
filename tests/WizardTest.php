@@ -33,9 +33,12 @@ it('can go to the next and previous steps', function () {
 });
 
 it('can skip steps', function () {
-    $class = new class extends WizardComponent {
+    $class = new class extends WizardComponent
+    {
         public FirstStepForm $firstStepForm;
+
         public SkipStepForm $skipTestForm;
+
         public SecondStepForm $secondStepForm;
 
         public function render()
@@ -52,11 +55,13 @@ it('can skip steps', function () {
         ->assertSee('__FIRST_STEP_BODY__');
 });
 
-
 it('can skip steps via closure', function () {
-    $class = new class extends WizardComponent {
+    $class = new class extends WizardComponent
+    {
         public FirstStepForm $firstStepForm;
+
         public SomeIntricateNameStepForm $toSkipStepForm;
+
         public SecondStepForm $secondStepForm;
 
         public function booted()
@@ -115,7 +120,8 @@ it('adds unique wire:key to steps', function () {
 });
 
 it('has default labels for steps', function () {
-    $class = new class extends WizardComponent {
+    $class = new class extends WizardComponent
+    {
         public SomeIntricateNameStepForm $someIntricateNameStepForm;
 
         public function render()
