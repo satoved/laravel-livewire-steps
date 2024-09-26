@@ -6,6 +6,7 @@ use Satoved\LivewireSteps\Livewire\WizardComponent;
 use Satoved\LivewireSteps\Tests\TestSupport\MyWizardComponent;
 use Satoved\LivewireSteps\Tests\TestSupport\Steps\FirstStepForm;
 use Satoved\LivewireSteps\Tests\TestSupport\Steps\SecondStepForm;
+use Satoved\LivewireSteps\Tests\TestSupport\Steps\SkipStepForm;
 use Satoved\LivewireSteps\Tests\TestSupport\Steps\SomeIntricateNameStepForm;
 
 $it = it('can render a wizard component', function () {
@@ -22,8 +23,61 @@ it('can show a specific step on load', function () {
         ->assertSee('__SECOND_STEP_BODY__');
 });
 
-it('can render the next and previous step', function () {
+it('can go to the next and previous steps', function () {
     Livewire::test(MyWizardComponent::class)
+        ->assertSee('__FIRST_STEP_BODY__')
+        ->call('nextStep')
+        ->assertSee('__SECOND_STEP_BODY__')
+        ->call('previousStep')
+        ->assertSee('__FIRST_STEP_BODY__');
+});
+
+it('can skip steps', function () {
+    $class = new class extends WizardComponent
+    {
+        public FirstStepForm $firstStepForm;
+
+        public SkipStepForm $skipTestForm;
+
+        public SecondStepForm $secondStepForm;
+
+        public function render()
+        {
+            return '<div>{{ $this->renderStep() }}</div>';
+        }
+    };
+
+    Livewire::test($class)
+        ->assertSee('__FIRST_STEP_BODY__')
+        ->call('nextStep')
+        ->assertSee('__SECOND_STEP_BODY__')
+        ->call('previousStep')
+        ->assertSee('__FIRST_STEP_BODY__');
+});
+
+it('can skip steps via closure', function () {
+    $class = new class extends WizardComponent
+    {
+        public FirstStepForm $firstStepForm;
+
+        public SomeIntricateNameStepForm $toSkipStepForm;
+
+        public SecondStepForm $secondStepForm;
+
+        public function booted()
+        {
+            $this->toSkipStepForm->skipIf(function () {
+                return true;
+            });
+        }
+
+        public function render()
+        {
+            return '<div>{{ $this->renderStep() }}</div>';
+        }
+    };
+
+    Livewire::test($class)
         ->assertSee('__FIRST_STEP_BODY__')
         ->call('nextStep')
         ->assertSee('__SECOND_STEP_BODY__')

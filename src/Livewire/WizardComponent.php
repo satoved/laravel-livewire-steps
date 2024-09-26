@@ -41,16 +41,20 @@ abstract class WizardComponent extends Component
      */
     public function nextStep(): void
     {
-        if ($this->currentStepIndex === $this->totalSteps() - 1) {
-            throw NoNextStep::make(self::class, get_class($this->currentStep()));
-        }
+        do {
+            if ($this->currentStepIndex === $this->totalSteps() - 1) {
+                throw NoNextStep::make(self::class, get_class($this->currentStep()));
+            }
 
-        $this->currentStepIndex++;
+            $this->currentStepIndex++;
+        } while ($this->currentStep()->shouldBeSkipped());
     }
 
     public function previousStep(): void
     {
-        $this->currentStepIndex = max(0, $this->currentStepIndex - 1);
+        do {
+            $this->currentStepIndex = max(0, $this->currentStepIndex - 1);
+        } while ($this->currentStepIndex !== 0 && $this->currentStep()->shouldBeSkipped());
     }
 
     protected function isFirstStep(): bool
