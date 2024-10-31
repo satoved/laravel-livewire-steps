@@ -1,4 +1,4 @@
-# Lightweight Livewire component that allow you to easily build a wizard, or multi-step forms.
+# Lightweight Livewire component to build wizards (multi-step forms)
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/satoved/laravel-livewire-steps.svg?style=flat-square)](https://packagist.org/packages/satoved/laravel-livewire-steps)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/satoved/laravel-livewire-steps/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/satoved/laravel-livewire-steps/actions?query=workflow%3Arun-tests+branch%3Amain)
