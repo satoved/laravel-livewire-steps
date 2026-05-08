@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-livewire-steps` will be documented in this file.
 
+## v1.4.0 - 2026-05-08
+
+### What's Changed
+
+* Added Laravel 13 support by @AlexeyAndriyuk in https://github.com/satoved/laravel-livewire-steps/pull/5
+
+### New Contributors
+
+* @AlexeyAndriyuk made their first contribution in https://github.com/satoved/laravel-livewire-steps/pull/5
+
+**Full Changelog**: https://github.com/satoved/laravel-livewire-steps/compare/v1.3.0...v1.4.0
+
 ## v1.3.0 - 2026-02-01
 
 ### What's Changed
